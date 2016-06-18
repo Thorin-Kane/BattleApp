@@ -4,6 +4,8 @@ var styles = require('../styles');
 var Link = require('react-router').Link;
 var UserDetailsWrapper = require('./UserDetailsWrapper');
 var UserDetails = require('./UserDetails');
+var MainContainer = require('./MainContainer');
+var Loading = require('./Loading');
 
 function puke(object) {
 	return <pre>{JSON.stringify(object, null, ' ')}</pre>
@@ -11,9 +13,9 @@ function puke(object) {
 
 function ConfirmBattle (props) {
 	return props.isLoading === true 
-	  ? <p>LOADING</p> 
+	  ? <Loading text={'Waiting'} speed={300}/> 
 	// : <div>CONFIRM BATTLE!: {puke(props)}</div>
-	  :	<div className="jumbotron col-sm-12 text-center" style={styles.transparentBg}>
+	  :	<MainContainer>
 			<h1>Confirm Players</h1>
 		<div className='col-sm-8 col-sm-offset-2'>
 		  <UserDetailsWrapper header='Player 1'>
@@ -33,12 +35,12 @@ function ConfirmBattle (props) {
 		    </Link>
 		  </div>
 		</div>
-		</div>
+		</MainContainer>
 }
 
 ConfirmBattle.PropTypes = {
 	isLoading: PropTypes.bool.isRequired,
-	// onInitiateBattle: PropTypes.function.isRequired,
+	onInitiateBattle: PropTypes.func.isRequired,
 	playersInfo: PropTypes.array.isRequired
 }
 module.exports = ConfirmBattle;
